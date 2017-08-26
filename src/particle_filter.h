@@ -21,16 +21,14 @@ struct Particle {
 	std::vector<int> associations;
 	std::vector<double> sense_x;
 	std::vector<double> sense_y;
+	friend std::ostream& operator<<(std::ostream& os, const Particle& a);
 };
-
 
 
 class ParticleFilter {
 	
 	// Number of particles to draw
 	int num_particles; 
-	
-	
 	
 	// Flag, if filter is initialized
 	bool is_initialized;

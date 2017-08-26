@@ -41,8 +41,14 @@ struct LandmarkObs {
 	int id;				// Id of matching landmark in the map.
 	double x;			// Local (vehicle coordinates) x position of landmark observation [m]
 	double y;			// Local (vehicle coordinates) y position of landmark observation [m]
+
+	friend std::ostream& operator<<(std::ostream& os, const LandmarkObs& o);
 };
 
+inline std::ostream& operator<<(std::ostream& os, const LandmarkObs& o) {
+	os << o.id << "," << o.x << "," << o.y;
+	return os;
+}
 /*
  * Computes the Euclidean distance between two 2D points.
  * @param (x1,y1) x and y coordinates of first point
