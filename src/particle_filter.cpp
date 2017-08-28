@@ -154,6 +154,11 @@ void ParticleFilter::updateWeights(double sensor_range, double std_landmark[],
 		const Particle& p = particles[i];
 		// retrieved observations map
 		vehicleToMap(p, observations, &mapObs);	
+		if(mapObs.size() == 0) {
+			sum_probability += 0.0;
+			weights[i] = 0.0;
+			continue;
+		}
 
 		// associate most likely landmark by the logic of finding least distance
 		std::vector<LandmarkObs> landmarks;
@@ -197,7 +202,7 @@ void ParticleFilter::resample() {
 	for(int i=0; i<num_particles; i++) {
 		sampled[i] = particles[d(gen)];
 	}
-	particles = sampled;
+	particles = std::move(sampled);
 }
 
 Particle ParticleFilter::SetAssociations(Particle particle, std::vector<int> associations, std::vector<double> sense_x, std::vector<double> sense_y)
